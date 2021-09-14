@@ -245,9 +245,18 @@ pub trait AffineCurve:
     + for<'a> core::iter::Sum<&'a Self>
     + From<<Self as AffineCurve>::Projective>
 {
+    /// Cofactor of the subgroup defined by `order / prime order of subgroup`
     const COFACTOR: &'static [u64];
+
+    /// Set of scalars in a prime field with efficient square root
+    /// implementation
     type ScalarField: PrimeField + SquareRootField + Into<<Self::ScalarField as PrimeField>::BigInt>;
+
+    /// Set of scalars in the base field
     type BaseField: Field;
+
+    /// Set of points projected from the affine space with performance
+    /// improvement for multiplication and addition
     type Projective: ProjectiveCurve<Affine = Self, ScalarField = Self::ScalarField, BaseField = Self::BaseField>
         + From<Self>
         + Into<Self>
@@ -318,6 +327,10 @@ pub fn prepare_g2<E: PairingEngine>(g: impl Into<E::G2Affine>) -> E::G2Prepared 
     E::G2Prepared::from(g)
 }
 
+/// Paring mappings over affine curves
+///
+/// The base field of E1 is the scalar field of E2, and the scalar field of E1
+/// is the base field of E2
 pub trait CurveCycle
 where
     <Self::E1 as AffineCurve>::Projective: MulAssign<<Self::E2 as AffineCurve>::BaseField>,
@@ -330,6 +343,7 @@ where
     type E2: AffineCurve;
 }
 
+/// Pairing mappings with concrete engine implementations
 pub trait PairingFriendlyCycle: CurveCycle {
     type Engine1: PairingEngine<
         G1Affine = Self::E1,
