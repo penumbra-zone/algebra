@@ -248,7 +248,7 @@ pub trait AffineCurve:
     /// Cofactor of the subgroup defined by `order / prime order of subgroup`
     const COFACTOR: &'static [u64];
 
-    /// Set of scalars in a prime field with efficient square root
+    /// Type of scalars in a prime field with efficient square root
     /// implementation
     type ScalarField: PrimeField + SquareRootField + Into<<Self::ScalarField as PrimeField>::BigInt>;
 
