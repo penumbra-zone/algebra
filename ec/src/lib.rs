@@ -40,6 +40,7 @@ pub mod msm;
 
 pub mod wnaf;
 
+/// Efficient paring implementations for arbitrary curves
 pub trait PairingEngine: Sized + 'static + Copy + Debug + Sync + Send + Eq + PartialEq {
     /// This is the scalar field of the G1/G2 groups.
     type Fr: PrimeField + SquareRootField;
@@ -343,7 +344,7 @@ where
     type E2: AffineCurve;
 }
 
-/// Pairing mappings with concrete engine implementations
+/// Cyclic pairing between different engine implementations
 pub trait PairingFriendlyCycle: CurveCycle {
     type Engine1: PairingEngine<
         G1Affine = Self::E1,
