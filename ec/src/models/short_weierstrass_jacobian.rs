@@ -41,8 +41,8 @@ use rayon::prelude::*;
     Hash(bound = "P: Parameters")
 )]
 #[must_use]
-// DISCUSS these shouldn't be public and instead we should have functions encapsulating the
-// attributes
+// DISCUSS these shouldn't be public and instead we should have functions
+// encapsulating the attributes
 pub struct GroupAffine<P: Parameters> {
     /// X coordinate of the point represented as a field element
     pub x: P::BaseField,
@@ -75,8 +75,9 @@ impl<P: Parameters> Display for GroupAffine<P> {
 }
 
 impl<P: Parameters> GroupAffine<P> {
-    // DISCUSS The function shouldn't take infinity as parameter but instead accept only `(x,y)` so
-    // we have another const function `GroupAffine::infinity` that takes no parameters
+    // DISCUSS The function shouldn't take infinity as parameter but instead accept
+    // only `(x,y)` so we have another const function `GroupAffine::infinity`
+    // that takes no parameters
     pub fn new(x: P::BaseField, y: P::BaseField, infinity: bool) -> Self {
         Self { x, y, infinity }
     }

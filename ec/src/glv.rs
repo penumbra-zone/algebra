@@ -4,7 +4,8 @@ use crate::ModelParameters;
 pub trait GLVParameters: Send + Sync + 'static + ModelParameters {
     /// Base points space of the curve
     type CurveAffine;
-    /// Multivalued function of the affine space for efficient addition and multiplication
+    /// A representation of curve points that enables efficient arithmetic by
+    /// avoiding inversions
     type CurveProjective;
 
     // Constants that are used to calculate `phi(G) := lambda*G`.
