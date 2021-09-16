@@ -253,10 +253,10 @@ pub trait AffineCurve:
     /// implementation
     type ScalarField: PrimeField + SquareRootField + Into<<Self::ScalarField as PrimeField>::BigInt>;
 
-    /// Set of scalars in the base field
+    /// Type of scalars in the base field
     type BaseField: Field;
 
-    /// Set of points projected from the affine space with performance
+    /// Type of points projected from the affine space with performance
     /// improvement for multiplication and addition
     type Projective: ProjectiveCurve<Affine = Self, ScalarField = Self::ScalarField, BaseField = Self::BaseField>
         + From<Self>
